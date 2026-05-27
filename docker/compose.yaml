@@ -54,7 +54,7 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              device_ids: ["0"]  # Modify for multiple GPUs: ["0", "1"]
+              device_ids: ["2"]  # Modify for multiple GPUs: ["0", "1"]
               capabilities: [gpu]
 
   mineru-router:
@@ -98,7 +98,7 @@ services:
     restart: always
     profiles: ["gradio"]
     ports:
-      - 7860:7860
+      - 7866:7860
     environment:
       MINERU_MODEL_SOURCE: local
     entrypoint: mineru-gradio
@@ -118,5 +118,5 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              device_ids: ["0"]  # Modify for multiple GPUs: ["0", "1"]
+              device_ids: ["2"]  # Modify for multiple GPUs: ["0", "1"]
               capabilities: [gpu]
