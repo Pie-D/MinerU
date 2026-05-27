@@ -1,0 +1,663 @@
+{
+	"info": {
+		"_postman_id": "mineru-api-collection",
+		"name": "MinerU API Collection",
+		"description": "Collection for MinerU Backend API - Parse PDF, DOCX, PPTX, XLSX to Markdown",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Kiểm tra trạng thái sức khỏe của service"
+			},
+			"response": []
+		},
+		{
+			"name": "Parse File - Sync (Pipeline Backend)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "Upload PDF, DOCX, PPTX, hoặc XLSX file"
+						},
+						{
+							"key": "backend",
+							"value": "pipeline",
+							"type": "text",
+							"description": "Backend engine: pipeline, vlm-auto-engine, hybrid-auto-engine"
+						},
+						{
+							"key": "lang_list",
+							"value": "en",
+							"type": "text",
+							"description": "Ngôn ngữ: en, ch, korean, japan, arabic, v.v."
+						},
+						{
+							"key": "parse_method",
+							"value": "auto",
+							"type": "text",
+							"description": "Phương pháp: auto, txt, ocr"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text",
+							"description": "Trả về markdown content"
+						},
+						{
+							"key": "return_images",
+							"value": "false",
+							"type": "text",
+							"description": "Trả về ảnh đã extract"
+						},
+						{
+							"key": "formula_enable",
+							"value": "true",
+							"type": "text",
+							"description": "Bật parse công thức toán học"
+						},
+						{
+							"key": "table_enable",
+							"value": "true",
+							"type": "text",
+							"description": "Bật parse bảng"
+						},
+						{
+							"key": "response_format_zip",
+							"value": "false",
+							"type": "text",
+							"description": "Trả về dạng ZIP thay vì JSON"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse file đồng bộ với pipeline backend (đa ngôn ngữ, không cần GPU mạnh)"
+			},
+			"response": []
+		},
+		{
+			"name": "Parse File - Sync (Hybrid Backend)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "Upload PDF, DOCX, PPTX, hoặc XLSX file"
+						},
+						{
+							"key": "backend",
+							"value": "hybrid-auto-engine",
+							"type": "text",
+							"description": "Hybrid backend - độ chính xác cao nhất"
+						},
+						{
+							"key": "lang_list",
+							"value": "ch",
+							"type": "text",
+							"description": "Ngôn ngữ: ch (Chinese), en (English)"
+						},
+						{
+							"key": "parse_method",
+							"value": "auto",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "return_images",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "formula_enable",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "table_enable",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "image_analysis",
+							"value": "true",
+							"type": "text",
+							"description": "Bật phân tích ảnh/biểu đồ"
+						},
+						{
+							"key": "response_format_zip",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse file đồng bộ với hybrid backend (độ chính xác cao, cần GPU)"
+			},
+			"response": []
+		},
+		{
+			"name": "Parse File - Sync (Return ZIP)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "Upload file"
+						},
+						{
+							"key": "backend",
+							"value": "pipeline",
+							"type": "text"
+						},
+						{
+							"key": "lang_list",
+							"value": "en",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "return_images",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "return_content_list",
+							"value": "true",
+							"type": "text",
+							"description": "Trả về content list JSON"
+						},
+						{
+							"key": "response_format_zip",
+							"value": "true",
+							"type": "text",
+							"description": "Trả về file ZIP chứa tất cả kết quả"
+						},
+						{
+							"key": "return_original_file",
+							"value": "true",
+							"type": "text",
+							"description": "Bao gồm file gốc trong ZIP"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse file và trả về kết quả dạng ZIP file"
+			},
+			"response": []
+		},
+		{
+			"name": "Parse File - Sync (Specific Pages)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "backend",
+							"value": "pipeline",
+							"type": "text"
+						},
+						{
+							"key": "lang_list",
+							"value": "en",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "start_page_id",
+							"value": "0",
+							"type": "text",
+							"description": "Trang bắt đầu (từ 0)"
+						},
+						{
+							"key": "end_page_id",
+							"value": "5",
+							"type": "text",
+							"description": "Trang kết thúc (từ 0)"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse chỉ một số trang cụ thể của PDF"
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Async Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Lưu task_id vào biến môi trường để dùng cho các request sau",
+							"if (pm.response.code === 202) {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"task_id\", jsonData.task_id);",
+							"    console.log(\"Task ID saved: \" + jsonData.task_id);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "Upload file"
+						},
+						{
+							"key": "backend",
+							"value": "pipeline",
+							"type": "text"
+						},
+						{
+							"key": "lang_list",
+							"value": "en",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "return_images",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/tasks",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tasks"
+					]
+				},
+				"description": "Submit task bất đồng bộ, nhận task_id ngay lập tức. Task_id sẽ được lưu tự động vào biến môi trường."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tasks/{{task_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tasks",
+						"{{task_id}}"
+					]
+				},
+				"description": "Kiểm tra trạng thái của task. Status có thể là: pending, processing, completed, failed"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task Result",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tasks/{{task_id}}/result",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tasks",
+						"{{task_id}}",
+						"result"
+					]
+				},
+				"description": "Lấy kết quả của task đã hoàn thành. Nếu task chưa xong sẽ trả về status 202."
+			},
+			"response": []
+		},
+		{
+			"name": "Parse Multiple Files",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "File thứ nhất"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "File thứ hai"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "File thứ ba (có thể thêm nhiều file)"
+						},
+						{
+							"key": "backend",
+							"value": "pipeline",
+							"type": "text"
+						},
+						{
+							"key": "lang_list",
+							"value": "en",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse nhiều file cùng lúc trong một request"
+			},
+			"response": []
+		},
+		{
+			"name": "Parse with VLM HTTP Client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "backend",
+							"value": "vlm-http-client",
+							"type": "text",
+							"description": "Sử dụng VLM qua HTTP client"
+						},
+						{
+							"key": "server_url",
+							"value": "http://127.0.0.1:30000",
+							"type": "text",
+							"description": "URL của OpenAI-compatible server"
+						},
+						{
+							"key": "lang_list",
+							"value": "ch",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "image_analysis",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse file sử dụng VLM HTTP client (gọi đến OpenAI-compatible server)"
+			},
+			"response": []
+		},
+		{
+			"name": "Parse DOCX File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "Upload DOCX file"
+						},
+						{
+							"key": "backend",
+							"value": "pipeline",
+							"type": "text"
+						},
+						{
+							"key": "lang_list",
+							"value": "en",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse file DOCX sang markdown"
+			},
+			"response": []
+		},
+		{
+			"name": "Parse PPTX File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "Upload PPTX file"
+						},
+						{
+							"key": "backend",
+							"value": "pipeline",
+							"type": "text"
+						},
+						{
+							"key": "lang_list",
+							"value": "en",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse file PowerPoint sang markdown"
+			},
+			"response": []
+		},
+		{
+			"name": "Parse XLSX File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"description": "Upload XLSX file"
+						},
+						{
+							"key": "backend",
+							"value": "pipeline",
+							"type": "text"
+						},
+						{
+							"key": "lang_list",
+							"value": "en",
+							"type": "text"
+						},
+						{
+							"key": "return_md",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/file_parse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"file_parse"
+					]
+				},
+				"description": "Parse file Excel sang markdown"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "task_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
